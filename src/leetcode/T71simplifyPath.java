@@ -12,26 +12,24 @@ import java.util.Stack;
  */
 public class T71simplifyPath {
     public String simplifyPath(String path) {
-        String[] strs=path.split("/");
+        String[] strNums=path.split("/");
         StringBuilder res=new StringBuilder();
-        Stack stack=new Stack();
-        for(int i=0;i<strs.length;i++){
-            if(strs[i].equals("")||strs[i].equals(".")){
-                continue;
-            }else if(strs[i].equals("..")){
-                if(!stack.isEmpty()){
+        Stack<String> stack=new Stack<>();
+        for (String str : strNums) {
+            if ("..".equals(str)) {
+                if (!stack.isEmpty()) {
                     stack.pop();
                 }
-            }else{
-                stack.push(strs[i]);
+            } else if(!("".equals(str) || ".".equals(str))){
+                stack.push(str);
             }
         }
         if(stack.isEmpty()){
             return "/";
         }
-        for(int i=0;i<stack.size();i++){
+        for (String s : stack) {
             res.append("/");
-            res.append(stack.get(i));
+            res.append(s);
         }
         return res.toString();
     }
